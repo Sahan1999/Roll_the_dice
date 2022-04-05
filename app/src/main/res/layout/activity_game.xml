@@ -19,10 +19,10 @@
         app:srcCompat="@drawable/resultback" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/titleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You Win!"
+        android:text="Let's Play"
         android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
@@ -33,10 +33,10 @@
         app:layout_constraintVertical_bias="0.502" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/scoreTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score: +10"
+        android:text=" "
         android:textColor="#FFFFFF"
         android:textSize="13sp"
         android:textStyle="bold"
@@ -51,6 +51,7 @@
         android:id="@+id/button"
         android:layout_width="145dp"
         android:layout_height="42dp"
+        android:onClick="goToLeaderboardActivity"
         android:background="@drawable/leaderboardbtnbig"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +60,7 @@
         app:layout_constraintVertical_bias="0.875" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/playerbtn"
         android:layout_width="85dp"
         android:layout_height="85dp"
         android:background="@drawable/dice1"
@@ -71,7 +72,7 @@
         app:layout_constraintVertical_bias="0.654" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/computerbtn"
         android:layout_width="85dp"
         android:layout_height="85dp"
         android:background="@drawable/dice1"
@@ -89,6 +90,7 @@
         android:background="#00FFFFFF"
         android:text="Exit"
         android:textAllCaps="false"
+        android:onClick="goToMainMenuActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

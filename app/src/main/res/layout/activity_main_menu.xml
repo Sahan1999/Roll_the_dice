@@ -7,12 +7,11 @@
     android:background="#FFFFFF"
     tools:context=".MainMenuActivity">
 
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="126dp"
         android:layout_height="25dp"
-        android:text="Score : 0"
+        android:text="Score:"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -67,6 +66,7 @@
         android:background="#00FFFFFF"
         android:text="Exit"
         android:textAllCaps="false"
+        android:onClick="exitGame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

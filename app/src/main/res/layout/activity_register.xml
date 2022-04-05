@@ -17,7 +17,7 @@
         android:layout_marginEnd="103dp"
         android:layout_marginRight="103dp"
         android:layout_marginBottom="134dp"
-        android:background="@drawable/loginbtn"
+        android:background="@drawable/registerbtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
