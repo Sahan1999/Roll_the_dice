@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "931944362849",
+    "project_id": "roll-the-dice-fefa2",
+    "storage_bucket": "roll-the-dice-fefa2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931944362849:android:1488a5e04d6bf6e281cb20",
+        "android_client_info": {
+          "package_name": "com.cis.rollthedice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931944362849-32467nbo5mlqvlvsqu4int29jbn2edu2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJPONoa16iDLedh7tuLjbDgo70giirRzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931944362849-32467nbo5mlqvlvsqu4int29jbn2edu2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
