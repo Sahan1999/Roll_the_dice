@@ -42,10 +42,10 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapter.MyViewHolder holder, int position) {
         String name = usersList.get(position).getFullname();
-        String score = usersList.get(position).getScore();
+        int score = usersList.get(position).getScore();
         String rank = String.valueOf(position+1);
         holder.fullnameTxt.setText(name);
-        holder.scoreTxt.setText(score);
+        holder.scoreTxt.setText(String.valueOf(score));
         holder.rankTxt.setText(rank);
     }
 

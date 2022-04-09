@@ -4,12 +4,12 @@ public class User {
     private String fullname;
     private String email;
     private String password;
-    private String score;
+    private int score;
 
     public User() {
     }
 
-    public User(String fullname, String email, String password, String score) {
+    public User(String fullname, String email, String password, int score) {
         this.fullname = fullname;
         this.email = email;
         this.password = password;
@@ -40,11 +40,11 @@ public class User {
         this.password = password;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 }

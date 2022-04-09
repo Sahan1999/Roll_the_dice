@@ -41,7 +41,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                     //Toast.makeText(LeaderboardActivity.this,postSnapshot.child("score").getValue().toString(),Toast.LENGTH_SHORT).show();
 
-                    User user = new User(postSnapshot.child("fullname").getValue().toString(),postSnapshot.child("email").getValue().toString(),postSnapshot.child("password").getValue().toString(),postSnapshot.child("score").getValue().toString());
+                    User user = new User(postSnapshot.child("fullname").getValue().toString(),postSnapshot.child("email").getValue().toString(),postSnapshot.child("password").getValue().toString(), Integer.parseInt(postSnapshot.child("score").getValue().toString()) );
                     usersList.add(user);
                 }
                 Collections.reverse(usersList);
