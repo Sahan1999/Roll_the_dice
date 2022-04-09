@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -45,6 +46,8 @@ import java.util.Map;
 public class GameActivity extends AppCompatActivity {
     Button playerButton,computerButton;
     TextView scoreText, titleText;
+    LottieAnimationView animationView, animationViewC;
+
     int calScore=0;
     int diceValueP=0;
     int diceValueC=0;
@@ -56,6 +59,10 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         scoreText = findViewById(R.id.scoreTxt);
         titleText = findViewById(R.id.titleTxt);
+        animationView = findViewById(R.id.animationView1);
+        animationView.setVisibility(View.GONE);
+        animationViewC = findViewById(R.id.animationView2);
+        animationViewC.setVisibility(View.GONE);
 
         FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
         String userId=user.getUid();
@@ -84,6 +91,14 @@ public class GameActivity extends AppCompatActivity {
         playerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                animationView.playAnimation();
+                animationView.setVisibility(View.VISIBLE);
+                animationViewC.playAnimation();
+                animationViewC.setVisibility(View.VISIBLE);
+                playerButton.setVisibility(View.GONE);
+                computerButton.setVisibility(View.GONE);
+                scoreText.setText(" ");
+                titleText.setText(" ");
 
                 rollPlayerDice();
                 rollComputerDice();
@@ -91,6 +106,12 @@ public class GameActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        playerButton.setVisibility(View.VISIBLE);
+                        computerButton.setVisibility(View.VISIBLE);
+                        animationView.pauseAnimation();
+                        animationViewC.pauseAnimation();
+                        animationView.setVisibility(View.GONE);
+                        animationViewC.setVisibility(View.GONE);
 
                         Log.d("Score", "diceValueP: " + diceValueP+" diceValueC: " + diceValueC);
 
@@ -111,7 +132,7 @@ public class GameActivity extends AppCompatActivity {
                             scoreText.setText(" ");
                         }
                     }
-                }, 2000);
+                }, 2200);
 
                 try {
 
