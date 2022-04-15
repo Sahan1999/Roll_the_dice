@@ -1,7 +1,10 @@
 package com.cis.rollthedice;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -23,6 +26,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.cis.rollthedice.models.Dice;
+import com.cis.rollthedice.viewmodels.GameViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,7 +38,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,12 +45,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GameActivity extends AppCompatActivity {
     Button playerButton,computerButton;
     TextView scoreText, titleText;
     LottieAnimationView animationView, animationViewC;
+    private GameViewModel gameViewModel;
 
     int calScore=0;
     int diceValueP=0;
@@ -91,6 +97,7 @@ public class GameActivity extends AppCompatActivity {
         playerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 animationView.playAnimation();
                 animationView.setVisibility(View.VISIBLE);
                 animationViewC.playAnimation();
@@ -101,7 +108,15 @@ public class GameActivity extends AppCompatActivity {
                 titleText.setText(" ");
 
                 rollPlayerDice();
-                rollComputerDice();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        rollComputerDice();
+
+                    }
+                }, 1200);
+                Log.d("Score", "diceValueP: " + diceValueP+" diceValueC: " + diceValueC);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -132,7 +147,7 @@ public class GameActivity extends AppCompatActivity {
                             scoreText.setText(" ");
                         }
                     }
-                }, 2200);
+                }, 2700);
 
                 try {
 
@@ -147,7 +162,6 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-
     public void goToLeaderboardActivity(View view) {
         Intent intent = new Intent(this, LeaderboardActivity.class);
         startActivity(intent);
@@ -158,29 +172,16 @@ public class GameActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void rollPlayerDice(){
-        String url = "http://roll.diceapi.com/json/d6";
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        String uri = Uri.parse(url)
-                .buildUpon()
-                .build().toString();
-
-        StringRequest stringRequest = new StringRequest(
-                Request.Method.GET, uri, new Response.Listener<String>() {
+        gameViewModel = ViewModelProviders.of(GameActivity.this).get(GameViewModel.class);
+        gameViewModel.getData(GameActivity.this).observe(GameActivity.this, new Observer<Dice>() {
             @Override
-            public void onResponse(String response) {
-                Log.d("VolleyResponse", "response: " + response);
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray resultValue = jsonObject.getJSONArray("dice");
-                    String computerMove = resultValue.optString(0);
-
-                    Gson gson = new Gson();
-                    Result result = gson.fromJson(computerMove, Result.class);
-                    //Log.d("Final", "value: " + result.getValue());
-                    diceValue = result.getValue();
-                    diceValueP = result.getValue();
+            public void onChanged(@Nullable Dice dice) {
+                    //binding.searchProgress.setVisibility(View.GONE);
+                    Log.d("final", "dice: " + dice.getValue());
+                    Log.d("final", "type: " + dice.getType());
+                    diceValue = dice.getValue();
+                    diceValueP = dice.getValue();
 
                     Log.d("Player Dice", "value: " + diceValue);
 
@@ -197,45 +198,23 @@ public class GameActivity extends AppCompatActivity {
                     }else if(diceValue==6){
                         playerButton.setBackgroundResource(R.drawable.dice6);
                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("VolleyError", error.toString());
-            }
+
         });
-        requestQueue.add(stringRequest);
 
     }
     public void rollComputerDice(){
-        String url = "http://roll.diceapi.com/json/d6";
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        String uri = Uri.parse(url)
-                .buildUpon()
-                .build().toString();
-
-        StringRequest stringRequest = new StringRequest(
-                Request.Method.GET, uri, new Response.Listener<String>() {
+        gameViewModel = ViewModelProviders.of(GameActivity.this).get(GameViewModel.class);
+        gameViewModel.getData(GameActivity.this).observe(GameActivity.this, new Observer<Dice>() {
             @Override
-            public void onResponse(String response) {
-                Log.d("VolleyResponse", "response: " + response);
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray resultValue = jsonObject.getJSONArray("dice");
-                    String computerMove = resultValue.optString(0);
-
-                    Gson gson = new Gson();
-                    Result result = gson.fromJson(computerMove, Result.class);
-                    //Log.d("Final", "value: " + result.getValue());
-                    diceValue = result.getValue();
-                    diceValueC = result.getValue();
+            public void onChanged(@Nullable Dice dice) {
+                    //binding.searchProgress.setVisibility(View.GONE);
+                    Log.d("final", "dice: " + dice.getValue());
+                    Log.d("final", "type: " + dice.getType());
+                    diceValue = dice.getValue();
+                    diceValueC = dice.getValue();
 
                     Log.d("Computer Dice", "value: " + diceValue);
 
@@ -253,18 +232,8 @@ public class GameActivity extends AppCompatActivity {
                         computerButton.setBackgroundResource(R.drawable.dice6);
                     }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("VolleyError", error.toString());
             }
         });
-        requestQueue.add(stringRequest);
 
     }
 }

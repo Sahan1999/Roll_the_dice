@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.cis.rollthedice.models.User;
+import com.cis.rollthedice.viewmodels.LoginViewModel;
+import com.cis.rollthedice.viewmodels.RegisterViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,11 +27,14 @@ public class RegisterActivity extends AppCompatActivity {
     private Button buttonRegister;
     private EditText fullname,email,password;
     private FirebaseAuth mAuth;
+    private RegisterViewModel registerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        registerViewModel = new RegisterViewModel();
+
         fullname = findViewById(R.id.editTextTextPersonName);
         email = findViewById(R.id.editTextTextEmailAddress);
         password = findViewById(R.id.editTextTextPassword);
@@ -42,28 +49,14 @@ public class RegisterActivity extends AppCompatActivity {
                 String email1 = email.getText().toString();
                 String password1 = password.getText().toString();
 
-                mAuth.createUserWithEmailAndPassword(email1,password1)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    FirebaseUser user = mAuth.getInstance().getCurrentUser();
-                                    DatabaseReference ref= FirebaseDatabase.getInstance().getReference("USERS");
-                                    User dbuser= new User(fullname1,email1,password1,0);
-                                    ref.child(user.getUid()).setValue(dbuser);
-                                    Toast.makeText(RegisterActivity.this,"Successfully registered",Toast.LENGTH_SHORT).show();
-                                    Intent intent= new Intent(RegisterActivity.this,LoginActivity.class);
-                                    startActivity(intent);
-                                }else{
-                                    // If sign in fails, display a message to the user.
-                                    //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
-                                    //       Toast.LENGTH_SHORT).show();
-                                    //       updateUI(null);
-                                }
-                            }
-                        });
+                registerViewModel.initVars(RegisterActivity.this);
+                registerViewModel.setLoginName(fullname1);
+                registerViewModel.setLoginEmail(email1);
+                registerViewModel.setLoginPassword(password1);
+
+                registerViewModel.performRegister();
             }
+
         });
     }
 

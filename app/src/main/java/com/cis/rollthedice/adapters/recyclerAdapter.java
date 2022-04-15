@@ -1,4 +1,4 @@
-package com.cis.rollthedice;
+package com.cis.rollthedice.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
+import com.cis.rollthedice.R;
+import com.cis.rollthedice.models.User;
+
 import java.util.ArrayList;
 
 public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyViewHolder> {

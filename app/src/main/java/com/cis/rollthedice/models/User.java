@@ -1,4 +1,4 @@
-package com.cis.rollthedice;
+package com.cis.rollthedice.models;
 
 public class User {
     private String fullname;

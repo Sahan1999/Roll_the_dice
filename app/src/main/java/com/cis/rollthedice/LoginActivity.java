@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cis.rollthedice.viewmodels.LoginViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,11 +24,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtEmail;
     private EditText txtPassword;
     private FirebaseAuth mAuth;
+    private LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        loginViewModel = new LoginViewModel();
 
         txtEmail = findViewById(R.id.editTextTextEmailAddress);
         txtPassword = findViewById(R.id.editTextTextPassword);
@@ -41,34 +44,13 @@ public class LoginActivity extends AppCompatActivity {
                 String email = txtEmail.getText().toString().trim();
                 String password = txtPassword.getText().toString().trim();
 
-                if(TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginActivity.this,"Please enter a username",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else if(TextUtils.isEmpty(password)){
-                    Toast.makeText(LoginActivity.this,"Please enter a password",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else {
+                loginViewModel.initVars(LoginActivity.this);
 
+                loginViewModel.setLoginEmail(email);
+                loginViewModel.setLoginPassword(password);
 
-                    mAuth.signInWithEmailAndPassword(email,password)
-                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful())
-                                    {
-                                        Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
-                                        startActivity(intent);
-                                    }
-                                    else
-                                    {
-                                        Toast.makeText(LoginActivity.this,"Wrong username or password",Toast.LENGTH_SHORT).show();
-                                    }
+                loginViewModel.performLogin();
 
-                                }
-                            });
-                }
             }
         });
     }

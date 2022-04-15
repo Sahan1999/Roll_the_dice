@@ -49,6 +49,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     public void goToLeaderboardActivity(View view) {

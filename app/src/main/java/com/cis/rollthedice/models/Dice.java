@@ -1,10 +1,10 @@
-package com.cis.rollthedice;
+package com.cis.rollthedice.models;
 
-public class Result {
+public class Dice {
     private int value;
     private String type;
 
-    public Result( int value, String type) {
+    public Dice( int value, String type) {
         this.value = value;
         this.type = type;
     }
