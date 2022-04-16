@@ -11,19 +11,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".GameActivity"
+            android:name=".view.GameActivity"
             android:exported="false" />
         <activity
-            android:name=".LeaderboardActivity"
+            android:name=".view.LeaderboardActivity"
             android:exported="false" />
         <activity
-            android:name=".MainMenuActivity"
+            android:name=".view.MainMenuActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".view.RegisterActivity"
             android:exported="false" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

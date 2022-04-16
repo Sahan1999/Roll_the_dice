@@ -7,13 +7,11 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.cis.rollthedice.LoginActivity;
-import com.cis.rollthedice.MainActivity;
-import com.cis.rollthedice.MainMenuActivity;
+import com.cis.rollthedice.view.LoginActivity;
+import com.cis.rollthedice.view.MainMenuActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

@@ -1,18 +1,15 @@
-package com.cis.rollthedice;
+package com.cis.rollthedice.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.cis.rollthedice.viewmodels.GameViewModel;
+import com.cis.rollthedice.R;
 import com.cis.rollthedice.viewmodels.LoginViewModel;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    LoginViewModel loginViewModel;
+    private LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

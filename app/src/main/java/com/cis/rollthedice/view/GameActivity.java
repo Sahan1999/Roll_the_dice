@@ -1,4 +1,4 @@
-package com.cis.rollthedice;
+package com.cis.rollthedice.view;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -7,11 +7,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,18 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.cis.rollthedice.R;
 import com.cis.rollthedice.models.Dice;
 import com.cis.rollthedice.viewmodels.GameViewModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,19 +27,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class GameActivity extends AppCompatActivity {
-    Button playerButton,computerButton;
-    TextView scoreText, titleText;
-    LottieAnimationView animationView, animationViewC;
+    private Button playerButton,computerButton;
+    private TextView scoreText, titleText;
+    private LottieAnimationView animationView, animationViewC;
     private GameViewModel gameViewModel;
 
     int calScore=0;
@@ -115,7 +94,7 @@ public class GameActivity extends AppCompatActivity {
                         rollComputerDice();
 
                     }
-                }, 1200);
+                }, 1300);
                 Log.d("Score", "diceValueP: " + diceValueP+" diceValueC: " + diceValueC);
 
                 new Handler().postDelayed(new Runnable() {
@@ -147,7 +126,7 @@ public class GameActivity extends AppCompatActivity {
                             scoreText.setText(" ");
                         }
                     }
-                }, 2700);
+                }, 3000);
 
                 try {
 
@@ -177,7 +156,6 @@ public class GameActivity extends AppCompatActivity {
         gameViewModel.getData(GameActivity.this).observe(GameActivity.this, new Observer<Dice>() {
             @Override
             public void onChanged(@Nullable Dice dice) {
-                    //binding.searchProgress.setVisibility(View.GONE);
                     Log.d("final", "dice: " + dice.getValue());
                     Log.d("final", "type: " + dice.getType());
                     diceValue = dice.getValue();
@@ -210,7 +188,6 @@ public class GameActivity extends AppCompatActivity {
         gameViewModel.getData(GameActivity.this).observe(GameActivity.this, new Observer<Dice>() {
             @Override
             public void onChanged(@Nullable Dice dice) {
-                    //binding.searchProgress.setVisibility(View.GONE);
                     Log.d("final", "dice: " + dice.getValue());
                     Log.d("final", "type: " + dice.getType());
                     diceValue = dice.getValue();

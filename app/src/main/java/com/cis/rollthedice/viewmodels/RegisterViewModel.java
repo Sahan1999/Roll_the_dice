@@ -10,9 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.cis.rollthedice.LoginActivity;
-import com.cis.rollthedice.MainMenuActivity;
-import com.cis.rollthedice.RegisterActivity;
+import com.cis.rollthedice.view.LoginActivity;
 import com.cis.rollthedice.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

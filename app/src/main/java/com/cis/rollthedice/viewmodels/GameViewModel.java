@@ -31,12 +31,12 @@ public class GameViewModel extends ViewModel {
     private String type, value;
     private RequestQueue mQueue;
     private Dice dice;
-    private MutableLiveData<Dice> newsList;
+    private MutableLiveData<Dice> diceR;
 
     public LiveData<Dice> getData(Context context){
-        newsList = new MutableLiveData<>();
+        diceR = new MutableLiveData<>();
         loadData(context);
-        return newsList;
+        return diceR;
     }
 
     private void loadData(final Context context) {
@@ -49,30 +49,19 @@ public class GameViewModel extends ViewModel {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            //progressBar.setVisibility(View.GONE);
-                            //get the array called articles
-
                             Log.d("VolleyResponse", "response: " + response);
 
                             JSONArray articles = response.getJSONArray("dice");
                             Log.d("articles", "response: " + articles);
 
-                            //iterate in every object inside the array
                             for (int i = 0; i < articles.length(); i++) {
                                 JSONObject current = articles.getJSONObject(i);
-                                //get the image url and th head line for the corresponding
                                 value = current.getString("value");
                                 type = current.getString("type");
                                 Log.d("value", "response: " + value);
-                                //author = current.getString("author");
-                                //description = current.getString("description");
-                                //fullArticleLink = current.getString("url");
-                                //time = current.getString("publishedAt");
-                                //and finally add it to the list as an Article item
-                                //String newTime = time.substring(0, Math.min(time.length(), 10));
                                 dice = new Dice(Integer.parseInt(value),type);
                             }
-                            newsList.setValue(dice);
+                            diceR.setValue(dice);
                             Log.d("return", "dice: " + dice.getValue());
 
                         } catch (JSONException e) {
@@ -83,7 +72,6 @@ public class GameViewModel extends ViewModel {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //just print the error and notify the user for some technical problems
                         error.printStackTrace();
                         Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
                     }

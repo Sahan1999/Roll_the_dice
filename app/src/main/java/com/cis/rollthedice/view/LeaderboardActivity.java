@@ -1,11 +1,7 @@
-package com.cis.rollthedice;
+package com.cis.rollthedice.view;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -14,27 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.cis.rollthedice.R;
 import com.cis.rollthedice.adapters.recyclerAdapter;
-import com.cis.rollthedice.models.Dice;
 import com.cis.rollthedice.models.User;
-import com.cis.rollthedice.viewmodels.GameViewModel;
 import com.cis.rollthedice.viewmodels.LeaderboardViewModel;
-import com.cis.rollthedice.viewmodels.LoginViewModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class LeaderboardActivity extends AppCompatActivity {
 
